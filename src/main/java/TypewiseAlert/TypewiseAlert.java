@@ -6,20 +6,24 @@ public class TypewiseAlert {
 	private static final String TEMPERATURE_TOO_HIGH_MESSAGE = "Hi, the temperature is too high";
 	public static final String recepient = "a.b@c.com";
 
-	public static void checkAndAlert(EAlertTarget alertTarget, BatteryCharacter batteryCharacter,
+	public static boolean checkAndAlert(EAlertTarget alertTarget, BatteryCharacter batteryCharacter,
 			double temperatureInC) {
 
+		boolean targetAlerted = false;
 		EBreachType breachType = ClassifyTemperatureBreach.classifyTemperatureBreach(batteryCharacter.coolingType,
 				temperatureInC);
 
 		switch (alertTarget) {
 		case TO_CONTROLLER:
 			sendToController(breachType);
+			targetAlerted = true;
 			break;
 		case TO_EMAIL:
 			sendToEmail(breachType);
+			targetAlerted = true;
 			break;
 		}
+		return targetAlerted;
 	}
 
 	public static void sendToController(EBreachType breachType) {

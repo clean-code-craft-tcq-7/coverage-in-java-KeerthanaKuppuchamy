@@ -1,11 +1,8 @@
 package TypewiseAlert;
 
-import org.junit.Test;
+import static org.junit.Assert.assertTrue;
 
-import TypewiseAlert.BatteryCharacter;
-import TypewiseAlert.EAlertTarget;
-import TypewiseAlert.ECoolingType;
-import TypewiseAlert.TypewiseAlert;
+import org.junit.Test;
 
 public class TypewiseAlertTest {
 
@@ -14,22 +11,22 @@ public class TypewiseAlertTest {
 		BatteryCharacter batteryCharacter = new BatteryCharacter();
 		batteryCharacter.setCoolingType(ECoolingType.HI_ACTIVE_COOLING);
 		EAlertTarget alertTarget = EAlertTarget.TO_EMAIL;
-		TypewiseAlert.checkAndAlert(alertTarget, batteryCharacter, 60);
+		assertTrue(TypewiseAlert.checkAndAlert(alertTarget, batteryCharacter, 60));
 
 		batteryCharacter = new BatteryCharacter();
 		batteryCharacter.setCoolingType(ECoolingType.PASSIVE_COOLING);
 		alertTarget = EAlertTarget.TO_CONTROLLER;
-		TypewiseAlert.checkAndAlert(alertTarget, batteryCharacter, -1);
+		assertTrue(TypewiseAlert.checkAndAlert(alertTarget, batteryCharacter, -1));
 
 		batteryCharacter = new BatteryCharacter();
 		batteryCharacter.setCoolingType(ECoolingType.MED_ACTIVE_COOLING);
 		alertTarget = EAlertTarget.TO_EMAIL;
-		TypewiseAlert.checkAndAlert(alertTarget, batteryCharacter, -1);
+		assertTrue(TypewiseAlert.checkAndAlert(alertTarget, batteryCharacter, -1));
 
 		batteryCharacter = new BatteryCharacter();
 		batteryCharacter.setCoolingType(ECoolingType.MED_ACTIVE_COOLING);
 		alertTarget = EAlertTarget.TO_EMAIL;
-		TypewiseAlert.checkAndAlert(alertTarget, batteryCharacter, 20);
+		assertTrue(TypewiseAlert.checkAndAlert(alertTarget, batteryCharacter, 20));
 
 	}
 }

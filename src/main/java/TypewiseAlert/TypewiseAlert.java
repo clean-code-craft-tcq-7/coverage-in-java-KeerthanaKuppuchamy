@@ -2,6 +2,10 @@ package TypewiseAlert;
 
 public class TypewiseAlert {
 
+	private static final String TEMPERATURE_TOO_LOW_MESSAGE = "Hi, the temperature is too low";
+	private static final String TEMPERATURE_TOO_HIGH_MESSAGE = "Hi, the temperature is too high";
+	public static final String recepient = "a.b@c.com";
+
 	public static void checkAndAlert(EAlertTarget alertTarget, BatteryCharacter batteryCharacter,
 			double temperatureInC) {
 
@@ -24,18 +28,15 @@ public class TypewiseAlert {
 	}
 
 	public static void sendToEmail(EBreachType breachType) {
-		String recepient = "a.b@c.com";
-		switch (breachType) {
-		case TOO_LOW:
-			System.out.printf("To: %s\n", recepient);
-			System.out.println("Hi, the temperature is too low\n");
-			break;
-		case TOO_HIGH:
-			System.out.printf("To: %s\n", recepient);
-			System.out.println("Hi, the temperature is too high\n");
-			break;
-		case NORMAL:
-			break;
+		if (breachType.equals(EBreachType.TOO_HIGH)) {
+			alertViaEmail(TEMPERATURE_TOO_HIGH_MESSAGE);
+		} else if (breachType.equals(EBreachType.TOO_LOW)) {
+			alertViaEmail(TEMPERATURE_TOO_LOW_MESSAGE);
 		}
+	}
+
+	public static void alertViaEmail(String message) {
+		System.out.printf("To: %s\n", recepient);
+		System.out.println(message);
 	}
 }

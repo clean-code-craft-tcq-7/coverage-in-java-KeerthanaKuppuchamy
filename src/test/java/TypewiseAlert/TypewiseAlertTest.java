@@ -28,6 +28,9 @@ public class TypewiseAlertTest {
 		batteryCharacter.setCoolingType(ECoolingType.PASSIVE_COOLING);
 		alertTarget = EAlertTarget.TO_CONTROLLER;
 		assertTrue(TypewiseAlert.checkAndAlert(alertTarget, batteryCharacter, -1));
+
+		alertTarget = EAlertTarget.NO_ALERT;
+		assertFalse(TypewiseAlert.checkAndAlert(alertTarget, batteryCharacter, -1));
 	}
 
 	@Test

@@ -14,13 +14,10 @@ public class TypewiseAlert {
 		EBreachType breachType = ClassifyTemperatureBreach.classifyTemperatureBreach(batteryCharacter.coolingType,
 				temperatureInC);
 
-		switch (alertTarget) {
-		case TO_CONTROLLER:
+		if (alertTarget.equals(EAlertTarget.TO_CONTROLLER)) {
 			targetAlertedViaController = sendToController(breachType);
-			break;
-		case TO_EMAIL:
+		} else if (alertTarget.equals(EAlertTarget.TO_EMAIL)) {
 			targetAlertedViaEmail = sendToEmail(breachType);
-			break;
 		}
 		return targetAlertedViaEmail || targetAlertedViaController;
 	}

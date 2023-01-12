@@ -9,17 +9,16 @@ public class TypewiseAlert {
 	public static boolean checkAndAlert(EAlertTarget alertTarget, BatteryCharacter batteryCharacter,
 			double temperatureInC) {
 
-		boolean targetAlertedViaEmail = false;
-		boolean targetAlertedViaController = false;
+		boolean targetAlerted = false;
 		EBreachType breachType = ClassifyTemperatureBreach.classifyTemperatureBreach(batteryCharacter.coolingType,
 				temperatureInC);
 
 		if (alertTarget.equals(EAlertTarget.TO_CONTROLLER)) {
-			targetAlertedViaController = sendToController(breachType);
+			targetAlerted = sendToController(breachType);
 		} else if (alertTarget.equals(EAlertTarget.TO_EMAIL)) {
-			targetAlertedViaEmail = sendToEmail(breachType);
+			targetAlerted = sendToEmail(breachType);
 		}
-		return targetAlertedViaEmail || targetAlertedViaController;
+		return targetAlerted;
 	}
 
 	public static boolean sendToController(EBreachType breachType) {

@@ -9,34 +9,38 @@ public class TypewiseAlert {
 	public static boolean checkAndAlert(EAlertTarget alertTarget, BatteryCharacter batteryCharacter,
 			double temperatureInC) {
 
-		boolean targetAlerted = false;
+		boolean targetAlertedViaEmail = false;
+		boolean targetAlertedViaController = false;
 		EBreachType breachType = ClassifyTemperatureBreach.classifyTemperatureBreach(batteryCharacter.coolingType,
 				temperatureInC);
 
 		switch (alertTarget) {
 		case TO_CONTROLLER:
-			sendToController(breachType);
-			targetAlerted = true;
+			targetAlertedViaController = sendToController(breachType);
 			break;
 		case TO_EMAIL:
-			sendToEmail(breachType);
-			targetAlerted = true;
+			targetAlertedViaEmail = sendToEmail(breachType);
 			break;
 		}
-		return targetAlerted;
+		return targetAlertedViaEmail || targetAlertedViaController;
 	}
 
-	public static void sendToController(EBreachType breachType) {
+	public static boolean sendToController(EBreachType breachType) {
 		int header = 0xfeed;
 		System.out.printf("%s : %s\n", header, breachType);
+		return true;
 	}
 
-	public static void sendToEmail(EBreachType breachType) {
+	public static boolean sendToEmail(EBreachType breachType) {
+		boolean targetAlerted = false;
 		if (breachType.equals(EBreachType.TOO_HIGH)) {
 			alertViaEmail(TEMPERATURE_TOO_HIGH_MESSAGE);
+			targetAlerted = true;
 		} else if (breachType.equals(EBreachType.TOO_LOW)) {
 			alertViaEmail(TEMPERATURE_TOO_LOW_MESSAGE);
+			targetAlerted = true;
 		}
+		return targetAlerted;
 	}
 
 	public static void alertViaEmail(String message) {

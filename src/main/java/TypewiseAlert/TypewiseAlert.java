@@ -5,7 +5,7 @@ public class TypewiseAlert {
 	public static void checkAndAlert(EAlertTarget alertTarget, BatteryCharacter batteryCharacter, double temperatureInC,
 			IBreachAlerter breachAlerter) {
 
-		EBreachType breachType = ClassifyTemperatureBreach.classifyTemperatureBreach(batteryCharacter.coolingType,
+		EBreachType breachType = ClassifyTemperatureBreach.classifyTemperatureBreach(batteryCharacter.getCoolingType(),
 				temperatureInC);
 
 		if (alertTarget.equals(EAlertTarget.TO_CONTROLLER)) {
